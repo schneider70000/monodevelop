@@ -747,8 +747,7 @@ namespace MonoDevelop.DesignerSupport
 
 		public void Update (LoaderContext ctx)
 		{
-			IList<ItemToolboxNode> items = DesignerSupport.Service.ToolboxService.GetFileItems (ctx, fileName);
-			
+			var items = DesignerSupport.Service.ToolboxService.GetFileItems (ctx, fileName);
 			location = null;
 			this.timestamp = GetFileTimestamp (fileName);
 			entries = new List<ItemToolboxNode> (items);

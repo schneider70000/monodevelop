@@ -239,12 +239,22 @@ namespace MonoDevelop.DesignerSupport
 	
 	public static class DesignerSupport
 	{
-		static DesignerSupportService<Gtk.Widget> designerSupportService;
-		
-		public static DesignerSupportService<Gtk.Widget> Service {
+		//static DesignerSupportService<Gtk.Widget> designerSupportService;
+
+		//public static DesignerSupportService<Gtk.Widget> Service {
+		//	get {
+		//		if (designerSupportService == null)
+		//			designerSupportService = new DesignerSupportService<Gtk.Widget> ();
+		//		return designerSupportService;
+		//	}
+		//}
+
+		static DesignerSupportService<AppKit.NSView> designerSupportService;
+
+		public static DesignerSupportService<AppKit.NSView> Service {
 			get {
 				if (designerSupportService == null)
-					designerSupportService = new DesignerSupportService<Gtk.Widget> ();
+					designerSupportService = new DesignerSupportService<AppKit.NSView> ();
 				return designerSupportService;
 			}
 		}

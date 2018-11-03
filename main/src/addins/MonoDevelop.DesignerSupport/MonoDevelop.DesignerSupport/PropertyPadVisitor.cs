@@ -96,16 +96,16 @@ namespace MonoDevelop.DesignerSupport
 				DesignerSupport.Service.SetPadContent ((IPropertyPadProvider)ob, activeWidget);
 				found = true;
 				return true;
-			//}
-			//else if (ob is ICustomPropertyPadProvider<AppKit.NSView> provNS) {
-				//DesignerSupport.Service.SetPadContent(provNS, activeWidget);
-				//found = true;
-				//return true;
-			} 
-			else if (ob is ICustomPropertyPadProvider<Gtk.Widget> testGtk) {
-				DesignerSupport.Service.SetPadContent (testGtk, activeWidget);
+			}
+			else if (ob is ICustomPropertyPadProvider<AppKit.NSView> provNS) {
+				DesignerSupport.Service.SetPadContent(provNS, activeWidget);
 				found = true;
 				return true;
+			//} 
+			//else if (ob is ICustomPropertyPadProvider<Gtk.Widget> testGtk) {
+				//DesignerSupport.Service.SetPadContent (testGtk, activeWidget);
+				//found = true;
+				//return true;
 			} else
 				return false;
 		}
