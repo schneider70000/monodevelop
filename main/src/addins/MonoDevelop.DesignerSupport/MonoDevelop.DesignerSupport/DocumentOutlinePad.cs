@@ -38,14 +38,12 @@ using MonoDevelop.Components;
 
 namespace MonoDevelop.DesignerSupport
 {
-
-
 	public class DocumentOutlinePad : PadContent
 	{
 		Alignment box;
 		IOutlinedDocument currentOutlineDoc;
 		Document currentDoc;
-		DockItemToolbar toolbar;
+		IDockItemToolbar toolbar;
 
 		public DocumentOutlinePad ()
 		{

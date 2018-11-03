@@ -30,7 +30,6 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-using System;
 
 using MonoDevelop.Ide.Gui;
 
@@ -45,8 +44,17 @@ using MonoDevelop.Components;
 
 namespace MonoDevelop.DesignerSupport
 {
-	
-	public class PropertyPad : PadContent, ICommandDelegator
+	public interface IPropertyPad : ICommandDelegator
+	{
+		object CommandRouteOrigin { get; set; }
+		void UseCustomWidget (object widget);
+		IPadWindow PadWindow { get; }
+		Control Control { get; }
+		void BlankPad ();
+		MonoDevelop.Components.PropertyGrid.IPropertyGrid PropertyGrid { get; }
+	}
+
+	public class PropertyPad : PadContent, IPropertyPad
 	{
 		pg.PropertyGrid grid;
 		InvisibleFrame frame;
@@ -54,7 +62,7 @@ namespace MonoDevelop.DesignerSupport
 		IPadWindow container;
 		DockToolbarProvider toolbarProvider = new DockToolbarProvider ();
 
-		internal object CommandRouteOrigin { get; set; }
+		public object CommandRouteOrigin { get; set; }
 		
 		public PropertyPad ()
 		{
@@ -74,7 +82,7 @@ namespace MonoDevelop.DesignerSupport
 			DesignerSupport.Service.SetPad (this);
 		}
 		
-		internal IPadWindow PadWindow {
+		public IPadWindow PadWindow {
 			get { return container; }
 		}
 		
@@ -113,8 +121,8 @@ namespace MonoDevelop.DesignerSupport
 			PropertyGrid.CurrentObject = null;
 			CommandRouteOrigin = null;
 		}
-		
-		internal pg.PropertyGrid PropertyGrid {
+
+		public MonoDevelop.Components.PropertyGrid.IPropertyGrid PropertyGrid {
 			get {
 				if (customWidget) {
 					customWidget = false;
@@ -127,14 +135,16 @@ namespace MonoDevelop.DesignerSupport
 			}
 		}
 		
-		internal void UseCustomWidget (Gtk.Widget widget)
+		public void UseCustomWidget (object widget)
 		{
-			toolbarProvider.Attach (null);
-			ClearToolbar ();
-			customWidget = true;
-			frame.Remove (frame.Child);
-			frame.Add (widget);
-			widget.Show ();			
+			if (widget is Gtk.Widget wd) {
+				toolbarProvider.Attach (null);
+				ClearToolbar ();
+				customWidget = true;
+				frame.Remove (frame.Child);
+				frame.Add (wd);
+				wd.Show ();
+			}
 		}
 		
 		void ClearToolbar ()
@@ -147,9 +157,9 @@ namespace MonoDevelop.DesignerSupport
 		}
 	}
 	
-	class DockToolbarProvider: pg.PropertyGrid.IToolbarProvider
+	class DockToolbarProvider: pg.PropertyGrid.IToolbarProvider<Gtk.Widget>
 	{
-		DockItemToolbar tb;
+		IDockItemToolbar tb;
 		List<Gtk.Widget> buttons = new List<Gtk.Widget> ();
 		bool visible = true;
 		
@@ -157,7 +167,7 @@ namespace MonoDevelop.DesignerSupport
 		{
 		}
 		
-		public void Attach (DockItemToolbar tb)
+		public void Attach (IDockItemToolbar tb)
 		{
 			if (this.tb == tb)
 				return;

@@ -65,9 +65,9 @@ namespace MonoDevelop.DesignerSupport.Toolbox
 		{			
 			this.toolboxService = toolboxService;
 			this.container = container;
-			
+
 			#region Toolbar
-			DockItemToolbar toolbar = container.GetToolbar (DockPositionType.Top);
+			var toolbar = container.GetToolbar (DockPositionType.Top);
 		
 			filterEntry = new SearchEntry();
 			filterEntry.Ready = true;

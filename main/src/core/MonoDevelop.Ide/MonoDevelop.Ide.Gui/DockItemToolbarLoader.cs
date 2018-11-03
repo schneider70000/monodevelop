@@ -39,7 +39,7 @@ namespace MonoDevelop.Ide.Gui
 {
 	public static class DockItemToolbarLoader
 	{
-		public static void Add (this DockItemToolbar toolbar, CommandEntrySet entrySet, Control commandTarget)
+		public static void Add (this IDockItemToolbar toolbar, CommandEntrySet entrySet, Control commandTarget)
 		{
 			CommandDockBar dockBar = new CommandDockBar (toolbar, commandTarget);
 			foreach (CommandEntry entry in entrySet) {
@@ -52,10 +52,10 @@ namespace MonoDevelop.Ide.Gui
 	class CommandDockBar: ICommandBar
 	{
 		List<ToolButtonStatus> buttons = new List<ToolButtonStatus> ();
-		DockItemToolbar toolbar;
+		IDockItemToolbar toolbar;
 		object initialTarget;
 		
-		public CommandDockBar (DockItemToolbar toolbar, object initialTarget)
+		public CommandDockBar (IDockItemToolbar toolbar, object initialTarget)
 		{
 			this.toolbar = toolbar;
 			this.initialTarget = initialTarget;

@@ -90,9 +90,9 @@ namespace MonoDevelop.UnitTesting
 			
 			UnitTestService.TestSuiteChanged += OnTestSuiteChanged;
 			paned = new VPaned ();
-			
+
 			VBox vbox = new VBox ();
-			DockItemToolbar topToolbar = Window.GetToolbar (DockPositionType.Top);
+			var topToolbar = Window.GetToolbar (DockPositionType.Top);
 
 			var hbox = new HBox { Spacing = 6 };
 			hbox.PackStart (new ImageView (ImageService.GetIcon ("md-execute-all", IconSize.Menu)), false, false, 0);

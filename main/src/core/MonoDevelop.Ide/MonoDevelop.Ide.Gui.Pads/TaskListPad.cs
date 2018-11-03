@@ -52,7 +52,7 @@ namespace MonoDevelop.Ide.Gui.Pads
 		ITaskListView activeView;
 		
 		//toolbar
-		DockItemToolbar toolbar;
+		IDockItemToolbar toolbar;
 		ComboBox switcherCombo;
 		ListStore switcherComboList;
 		VSeparator separator;

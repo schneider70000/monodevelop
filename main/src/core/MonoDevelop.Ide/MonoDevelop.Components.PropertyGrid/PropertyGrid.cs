@@ -48,9 +48,18 @@ using MonoDevelop.Ide.Fonts;
 
 namespace MonoDevelop.Components.PropertyGrid
 {
+	public interface IPropertyGrid
+	{
+		void Populate (bool saveEditSession);
+		event EventHandler Changed;
+		void SetCurrentObject (object obj, object [] propertyProviders);
+		object CurrentObject { get; set; }
+		bool IsEditing { get; }
+	}
+
 	[System.ComponentModel.Category("MonoDevelop.Components")]
 	[System.ComponentModel.ToolboxItem(true)]
-	public class PropertyGrid: Gtk.VBox
+	public class PropertyGrid: Gtk.VBox, IPropertyGrid
 	{
 		object currentObject;
 		object[] propertyProviders;
@@ -59,8 +68,7 @@ namespace MonoDevelop.Components.PropertyGrid
 		HSeparator helpSeparator;
 		HSeparator toolbarSeparator;
 		VPaned vpaned;
-		
-		IToolbarProvider toolbar;
+		IToolbarProvider<Widget> toolbar;
 		RadioButton catButton;
 		RadioButton alphButton;
 
@@ -149,7 +157,7 @@ namespace MonoDevelop.Components.PropertyGrid
 
 		public ISite Site { get; set; }
 		
-		public void SetToolbarProvider (IToolbarProvider toolbarProvider)
+		public void SetToolbarProvider (IToolbarProvider<Widget> toolbarProvider)
 		{
 			PropertyGridToolbar t = toolbar as PropertyGridToolbar;
 			if (t == null)
@@ -287,11 +295,11 @@ namespace MonoDevelop.Components.PropertyGrid
 			QueueDraw ();
 		}
 
-		internal bool IsEditing {
+		public bool IsEditing {
 			get { return tree.IsEditing; } 
 		}
 		
-		internal void Populate (bool saveEditSession)
+		public void Populate (bool saveEditSession)
 		{
 			PropertyDescriptorCollection properties;
 			
@@ -421,16 +429,16 @@ namespace MonoDevelop.Components.PropertyGrid
 			descTitle = descText = null;
 			UpdateHelp ();
 		}
-		
-		public interface IToolbarProvider
+
+		public interface IToolbarProvider<T>
 		{
-			void Insert (Widget w, int pos);
-			Widget[] Children { get; }
+			void Insert (T w, int pos);
+			T[] Children { get; }
 			void ShowAll ();
 			bool Visible { get; set; }
 		}
 		
-		class PropertyGridToolbar: HBox, IToolbarProvider
+		class PropertyGridToolbar: HBox, IToolbarProvider<Widget>
 		{
 			public PropertyGridToolbar ()
 			{

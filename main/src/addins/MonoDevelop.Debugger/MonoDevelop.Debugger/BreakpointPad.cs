@@ -179,8 +179,8 @@ namespace MonoDevelop.Debugger
 			DebuggingService.StoppedEvent += OnDebuggerStatusCheck;
 			
 			tree.RowActivated += OnRowActivated;
-			
-			DockItemToolbar toolbar = window.GetToolbar (DockPositionType.Top);
+
+			IDockItemToolbar toolbar = window.GetToolbar (DockPositionType.Top);
 			toolbar.Add (toolbarSet, sw);
 			toolbar.ShowAll ();
 		}

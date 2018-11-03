@@ -95,11 +95,11 @@ namespace MonoDevelop.Ide.Gui
 		/// Interface providing the content widget
 		/// </summary>
 		PadContent Content { get; }
-		
+
 		/// <summary>
 		/// Returns a toolbar for the pad.
 		/// </summary>
-		DockItemToolbar GetToolbar (DockPositionType position);
+		MonoDevelop.Components.Docking.IDockItemToolbar GetToolbar (DockPositionType position);
 		
 		/// <summary>
 		/// Brings the pad to the front.
@@ -259,7 +259,7 @@ namespace MonoDevelop.Ide.Gui
 			}
 		}
 		
-		public DockItemToolbar GetToolbar (DockPositionType position)
+		public IDockItemToolbar GetToolbar (DockPositionType position)
 		{
 			return Item.GetToolbar (position);
 		}

@@ -60,9 +60,9 @@ namespace MonoDevelop.DesignerSupport
 	
 	// Use this interface to completely replace the property pad by a custom
 	// properties widget.
-	public interface ICustomPropertyPadProvider
+	public interface ICustomPropertyPadProvider<T>
 	{
-		Gtk.Widget GetCustomPropertyWidget ();
+		T GetCustomPropertyWidget ();
 		void DisposeCustomPropertyWidget ();
 	}
 	
@@ -82,6 +82,6 @@ namespace MonoDevelop.DesignerSupport
 		/// <param name='propertyGrid'>
 		/// Property grid. It will be null when using a custom property pad.
 		/// </param>
-		void Customize (IPadWindow padWindow, PropertyGrid propertyGrid);
+		void Customize (IPadWindow padWindow, IPropertyGrid propertyGrid);
 	}
 }

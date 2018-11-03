@@ -40,27 +40,25 @@ using MonoDevelop.Ide;
 
 namespace MonoDevelop.DesignerSupport
 {
-	
-	
-	public class DesignerSupportService
+	public class DesignerSupportService<T>
 	{
-		PropertyPad propertyPad = null;
+		IPropertyPad propertyPad = null;
 		ToolboxService toolboxService = null;
 		IPropertyProvider[] providers;
 		
 		IPropertyPadProvider lastPadProvider;
 		object lastComponent;
-		ICustomPropertyPadProvider lastCustomProvider;
+		ICustomPropertyPadProvider<T> lastCustomProvider;
 		
 		#region PropertyPad
 		
-		public PropertyPad PropertyPad {
+		public IPropertyPad PropertyPad {
 			get {
 				return propertyPad;
 			}
 		}
 		
-		internal void SetPad (PropertyPad pad)
+		internal void SetPad (IPropertyPad pad)
 		{
 			propertyPad = pad;
 			
@@ -155,12 +153,12 @@ namespace MonoDevelop.DesignerSupport
 			}
 		}
 		
-		public void SetPadContent (ICustomPropertyPadProvider provider)
+		public void SetPadContent (ICustomPropertyPadProvider<T> provider)
 		{
 			SetPadContent (provider, null);
 		}
 
-		public void SetPadContent (ICustomPropertyPadProvider provider, Gtk.Widget commandRouteOrigin)
+		public void SetPadContent (ICustomPropertyPadProvider<T> provider, Gtk.Widget commandRouteOrigin)
 		{
 			if (provider != null) {
 				
@@ -241,12 +239,12 @@ namespace MonoDevelop.DesignerSupport
 	
 	public static class DesignerSupport
 	{
-		static DesignerSupportService designerSupportService;
+		static DesignerSupportService<Gtk.Widget> designerSupportService;
 		
-		public static DesignerSupportService Service {
+		public static DesignerSupportService<Gtk.Widget> Service {
 			get {
 				if (designerSupportService == null)
-					designerSupportService = new DesignerSupportService ();
+					designerSupportService = new DesignerSupportService<Gtk.Widget> ();
 				return designerSupportService;
 			}
 		}

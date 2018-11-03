@@ -168,7 +168,7 @@ namespace MonoDevelop.UnitTesting
 		{
 			this.window = window;
 			
-			DockItemToolbar toolbar = window.GetToolbar (DockPositionType.Top);
+			var toolbar = window.GetToolbar (DockPositionType.Top);
 			
 			buttonSuccess = new ToggleButton ();
 			buttonSuccess.Label = GettextCatalog.GetString ("Successful Tests");
@@ -248,7 +248,7 @@ namespace MonoDevelop.UnitTesting
 			
 			// Run panel
 			
-			DockItemToolbar runPanel = window.GetToolbar (DockPositionType.Bottom);
+			var runPanel = window.GetToolbar (DockPositionType.Bottom);
 			
 			infoSep = new VSeparator ();
 			

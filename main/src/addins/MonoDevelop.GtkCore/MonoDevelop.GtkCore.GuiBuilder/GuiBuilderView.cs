@@ -403,7 +403,7 @@ namespace MonoDevelop.GtkCore.GuiBuilder
 		}
 	}
 	
-	class DesignerPage: Gtk.EventBox, ICustomPropertyPadProvider, IToolboxConsumer, MonoDevelop.DesignerSupport.IOutlinedDocument
+	class DesignerPage : Gtk.EventBox, ICustomPropertyPadProvider<Gtk.Widget>, IToolboxConsumer, MonoDevelop.DesignerSupport.IOutlinedDocument
 	{
 		GuiBuilderProject gproject;
 		
@@ -423,13 +423,19 @@ namespace MonoDevelop.GtkCore.GuiBuilder
 		public DotNetProject Project {
 			get { return gproject.Project; }
 		}
-		
-		Gtk.Widget ICustomPropertyPadProvider.GetCustomPropertyWidget ()
+
+
+		Widget ICustomPropertyPadProvider<Widget>.GetCustomPropertyWidget ()
 		{
 			return PropertiesWidget.Instance;
 		}
+
+		void ICustomPropertyPadProvider<Widget>.DisposeCustomPropertyWidget ()
+		{
+
+		}
 		
-		void ICustomPropertyPadProvider.DisposeCustomPropertyWidget ()
+		void DisposeCustomPropertyWidget ()
 		{
 		}
 		

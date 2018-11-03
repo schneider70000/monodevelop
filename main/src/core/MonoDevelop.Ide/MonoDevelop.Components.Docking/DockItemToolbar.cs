@@ -27,12 +27,30 @@
 using System;
 using System.Linq;
 using Gtk;
-
+using System.Collections.Generic;
 using MonoDevelop.Components.AtkCocoaHelper;
 
 namespace MonoDevelop.Components.Docking
 {
-	public class DockItemToolbar
+	public interface IDockItemToolbar
+	{
+		Control [] Children { get; }
+		void Add (Control widget);
+		void Add (Control widget, bool fill);
+		void Add (Control widget, bool fill, int padding);
+		void Remove (Control widget);
+		void Insert (Control w, int index);
+		void ShowAll ();
+		void SetAccessibleName (string v);
+		void SetAccessibleLabel (string v);
+		void SetAccessibleRole (string v, string v1);
+		void SetAccessibleDescription (string v);
+		bool Visible { get; set; }
+		bool Sensitive { get; set; }
+		DockItem DockItem { get; }
+	}
+
+	public class DockItemToolbar : IDockItemToolbar
 	{
 		DockItem parentItem;
 		Gtk.Widget frame;
@@ -208,8 +226,28 @@ namespace MonoDevelop.Components.Docking
 		{
 			frame.ShowAll ();
 		}
-		
-		public Control[] Children {
+
+		public void SetAccessibleName (string v)
+		{
+			Accessible.Name = v;
+		}
+
+		public void SetAccessibleLabel (string v)
+		{
+			Accessible.SetLabel (v);
+		}
+
+		public void SetAccessibleRole (string v, string v1)
+		{
+			Accessible.SetRole (v, v1);
+		}
+
+		public void SetAccessibleDescription (string v)
+		{
+			Accessible.Description = v;
+		}
+
+		public Control [] Children {
 			get { return box.Children.Select (child => (Control)child).ToArray (); }
 		}
 	}

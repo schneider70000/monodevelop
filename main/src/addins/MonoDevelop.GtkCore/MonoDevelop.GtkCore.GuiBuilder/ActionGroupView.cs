@@ -211,19 +211,20 @@ namespace MonoDevelop.GtkCore.GuiBuilder
 		}
 	}
 	
-	class ActionGroupPage: Gtk.VBox, ICustomPropertyPadProvider
+	class ActionGroupPage: Gtk.VBox, ICustomPropertyPadProvider<Gtk.Widget>
 	{
 		public ActionGroupPage ()
 		{
 		}
-		
-		Gtk.Widget ICustomPropertyPadProvider.GetCustomPropertyWidget ()
+
+		Gtk.Widget ICustomPropertyPadProvider<Gtk.Widget>.GetCustomPropertyWidget ()
 		{
 			return PropertiesWidget.Instance;
 		}
-		
-		void ICustomPropertyPadProvider.DisposeCustomPropertyWidget ()
+
+		void ICustomPropertyPadProvider<Gtk.Widget>.DisposeCustomPropertyWidget ()
 		{
+
 		}
 		
 		public void ClearChild ()
