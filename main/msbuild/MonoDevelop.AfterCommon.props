@@ -34,4 +34,8 @@
 			<LogicalName>%(Filename)%(Extension)</LogicalName>
 		</EmbeddedResource>
 	</ItemDefinitionGroup>
+
+	<ItemGroup>
+		<Analyzer Include="$(PackagesDirectory)\MonoDevelopDev.Analyzers.$(NugetVersionMonoDevelopAnalyzers)\analyzers\dotnet\cs\MonoDevelop.Analyzers.dll" />
+	</ItemGroup>
 </Project>
