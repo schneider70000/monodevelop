@@ -8,7 +8,7 @@
     <ReferencesGtk>$(RootDirectory)\msbuild\ReferencesGtk.props</ReferencesGtk>
     <NuGetVersionRoslyn>2.10.0-beta2-63315-04</NuGetVersionRoslyn>
     <NuGetVersionVSEditor>15.8.519</NuGetVersionVSEditor>
-    <NuGetVersionMonoDevelopAnalyzers>0.1.0</NuGetVersionMonoDevelopAnalyzers>
+    <NuGetVersionMonoDevelopAnalyzers>0.1.0.1</NuGetVersionMonoDevelopAnalyzers>
   </PropertyGroup>
 
 </Project>
